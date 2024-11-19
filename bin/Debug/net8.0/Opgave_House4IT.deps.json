@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Opgave_House4IT/1.0.0": {
+        "runtime": {
+          "Opgave_House4IT.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Opgave_House4IT/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

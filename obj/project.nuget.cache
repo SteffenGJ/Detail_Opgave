@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "dnvwutE46Ck=",
+  "success": true,
+  "projectFilePath": "/Users/steffengeorgi/dotnet-projects/Opgave_House4IT/Opgave_House4IT.csproj",
+  "expectedPackageFiles": [
+    "/Users/steffengeorgi/.nuget/packages/microsoft.netcore.app.ref/8.0.11/microsoft.netcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/steffengeorgi/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.11/microsoft.aspnetcore.app.ref.8.0.11.nupkg.sha512",
+    "/Users/steffengeorgi/.nuget/packages/microsoft.netcore.app.host.osx-x64/8.0.11/microsoft.netcore.app.host.osx-x64.8.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}
