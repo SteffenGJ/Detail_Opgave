@@ -30,13 +30,15 @@ class Parser
         {
             //Removes the currency character if there is one
             string newPrice = currencyPattern.Replace(price, "");
-
+  
+            //Replaces , with .
             if (commaPattern.IsMatch(newPrice))
             {
                 newPrice = commaPattern.Replace(newPrice, ".");
             }
 
-            parsedPrice = double.Parse(newPrice);
+            //Double is parsed where . is always the decimal seperator because of the InvariantCulture
+            parsedPrice = double.Parse(newPrice, System.Globalization.CultureInfo.InvariantCulture);
         }
 
         return parsedPrice;
