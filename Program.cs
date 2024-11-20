@@ -2,14 +2,14 @@
 
 GenerateCSVFile();
 
-List<Product> ParseProducts(ICSVHeader cSVHeader, List<List<string>> products)
+List<Product> ParseProducts(ICSVStructure cSVStructure, List<List<string>> products)
 {
     List<Product> realProducts = [];
     foreach (var item in products)
     {
         try
         {
-            realProducts.Add(cSVHeader.MapToProduct(item));
+            realProducts.Add(cSVStructure.MapToProduct(item));
         }
         catch (Exception e)
         {
@@ -24,8 +24,10 @@ void GenerateCSVFile()
     CSVReader cSVReader = new CSVReader();
     CSVWriter cSVWriter = new CSVWriter();
 
-    CSVHeaders headersFromFirstFile = new CSVHeaders(cSVReader.GetHeaders("./prisliste1.csv"));
-    CSVHeaders2 headerFromSecondFile = new CSVHeaders2(cSVReader.GetHeaders("./prisliste2.csv"));
+    CSVStructure1 headersFromFirstFile = new CSVStructure1(cSVReader.GetHeaders("./prisliste1.csv"));
+    CSVStructure2 headerFromSecondFile = new CSVStructure2(cSVReader.GetHeaders("./prisliste2.csv"));
+
+    //CSVStructureFactory.CreateStructure(headers);
 
     List<List<string>> products = cSVReader.GetAllValues("./prisliste1.csv");
     List<List<string>> products2 = cSVReader.GetAllValues("./prisliste2.csv");
@@ -47,7 +49,7 @@ void GenerateCSVFile()
 }
 
 
-interface ICSVHeader
+interface ICSVStructure
 {
     public Product MapToProduct(List<string> values);
 }
@@ -63,7 +65,22 @@ public readonly struct HeaderStruct
     public string Value { get; }
     public int Index { get; }
 }
-class CSVHeaders : ICSVHeader
+
+class CSVStructureFactory
+{
+    public static ICSVStructure CreateStructure(List<string> headers)
+    {
+        if (headers.Count == 7)
+        {
+            return new CSVStructure1(headers);
+        }
+        else
+        {
+            return new CSVStructure2(headers);
+        }
+    }
+}
+class CSVStructure1 : ICSVStructure
 {
     public HeaderStruct Item { get; }
     public HeaderStruct Unit { get; }
@@ -73,7 +90,7 @@ class CSVHeaders : ICSVHeader
     public HeaderStruct PriceGroup { get; }
     public HeaderStruct DateOfIssuance { get; }
 
-    public CSVHeaders(List<string> headers)
+    public CSVStructure1(List<string> headers)
     {
         Item = new HeaderStruct(headers[0], 0);
         ArticleDescription = new HeaderStruct(headers[1], 1);
@@ -99,7 +116,7 @@ class CSVHeaders : ICSVHeader
     }
 }
 
-class CSVHeaders2 : ICSVHeader
+class CSVStructure2 : ICSVStructure
 {
     public HeaderStruct Item { get; }
     public HeaderStruct Unit { get; }
@@ -108,9 +125,8 @@ class CSVHeaders2 : ICSVHeader
     public HeaderStruct PriceUnit { get; }
     public HeaderStruct PriceGroup { get; }
 
-    public CSVHeaders2(List<string> headers)
+    public CSVStructure2(List<string> headers)
     {
-        Console.WriteLine(headers.Count);
         Item = new HeaderStruct(headers[1], 1);
         ArticleDescription = new HeaderStruct(headers[0], 0);
         Unit = new HeaderStruct(headers[2], 2);

@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace Opgave_House4IT;
 
 //Class based on the data from CSV file
@@ -58,13 +60,17 @@ class Product
     public string ReplaceBlack()
     {
         //Replaces the word black with sort
+        //Regex checking for all variations of the word black
+        var pattern = new Regex("(?i)\bblack\b|black");
 
-        // if (description.ToLower().Contains(" black"))
-        // {
-        //     return articleDescription.Replace(" black", " sort");
-        // }
-        // return articleDescription;
-        return "fas";
+        if (pattern.IsMatch(description))
+        {
+            return pattern.Replace(description, "sort");
+        }
+        else
+        {
+            return description;
+        }
     }
 
     public string ToCSVPrice()
